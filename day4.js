@@ -2,8 +2,7 @@
 const { readFile } = require('./utils');
 
 readFile('day4')
-  .then(data => {
-
+  .then((data) => {
     const numberOfUnique = data
       .split('\n')
       .map(line => line.split(' '))
@@ -21,6 +20,5 @@ readFile('day4')
       .length;
 
     console.log(numberOfNonAnagrams);
-
-})
-	.catch(err => console.log(`There was an error\n${err}`));
+  })
+  .catch(err => console.log(`There was an error\n${err}`));
