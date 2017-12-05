@@ -1,0 +1,29 @@
+{
+  "name": "advent-of-code-2017",
+  "version": "1.0.0",
+  "description": "Advent of Code 2017 solutions",
+  "dependencies": {
+    "lodash": "^4.17.4",
+    "lodash.combinations": "^17.8.19"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hankolsen/advent-of-code-2017.git"
+  },
+  "keywords": [
+    "adventofcode",
+    "javscript",
+    "node",
+    "adventofcode2017"
+  ],
+  "author": "Hank",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hankolsen/advent-of-code-2017/issues"
+  },
+  "homepage": "https://github.com/hankolsen/advent-of-code-2017#readme"
+}
