@@ -3,7 +3,7 @@ const { readFile } = require('./utils');
 const _ = require('lodash');
 require('lodash.combinations');
 
-readFile('data/day2.csv')
+readFile('day2')
   .then(data => {
 
 		const answer = data

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const { readFile } = require('./utils');
 
-readFile('data/day4.txt')
+readFile('day4')
   .then(data => {
 
     const numberOfUnique = data
