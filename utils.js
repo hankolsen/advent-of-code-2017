@@ -5,7 +5,7 @@ const readFile = fileName => new Promise((resolve, reject) => {
     if (err) {
       reject(err);
     } else {
-      resolve(data);
+      resolve(data.split('\n'));
     }
   });
 });

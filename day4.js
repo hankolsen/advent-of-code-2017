@@ -1,22 +1,23 @@
 #!/usr/bin/env node
 const { readFile } = require('./utils');
 
+const isValid = (passphrase, transformer) => {
+  const words = passphrase
+    .split(' ')
+    .map(transformer);
+  return [...new Set(words)].length === words.length;
+};
+
 readFile('day4')
   .then((data) => {
     const numberOfUnique = data
-      .split('\n')
-      .map(line => line.split(' '))
-      .filter(words => [...new Set(words)].length === words.length)
+      .filter(words => isValid(words, word => word))
       .length;
 
     console.log(numberOfUnique);
 
-
     const numberOfNonAnagrams = data
-      .split('\n')
-      .map(line => line.split(' '))
-      .map(words => words.map(word => word.split('').sort().join('')))
-      .filter(words => [...new Set(words)].length === words.length)
+      .filter(words => isValid(words, word => [...word].sort().join('')))
       .length;
 
     console.log(numberOfNonAnagrams);

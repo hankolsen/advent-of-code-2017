@@ -8,9 +8,8 @@ const instructionStepper = (instructions, offsetter) => {
   let steps = 0;
 
   while (position < goal) {
-    const oldPosition = position;
     const offset = instructions[position];
-    instructions[oldPosition] += offsetter(offset);
+    instructions[position] += offsetter(offset);
     position += offset;
     steps += 1;
   }
@@ -21,7 +20,7 @@ const instructionStepper = (instructions, offsetter) => {
 
 readFile('day5')
   .then((data) => {
-    const instructions = data.split('\n').map(instruction => parseInt(instruction, 10));
+    const instructions = data.map(instruction => parseInt(instruction, 10));
 
     // Since we need the instructions untocuhed for the second step, pass in a clone of the array
     console.log(instructionStepper([...instructions], () => 1));
