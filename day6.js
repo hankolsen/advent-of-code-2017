@@ -5,25 +5,20 @@ readFile('day6')
   .then((data) => {
     const banks = data[0].split('\t').map(Number);
     const seenBanks = {};
-    let turns = 0;
+    let lastSeen = banks.toString();
 
-    do {
-      seenBanks[banks.toString()] = true;
-      const maxValue = Math.max(...banks);
-      let numbersToSpread = maxValue;
-      const startPosition = banks.indexOf(maxValue);
-      let index = startPosition + 1;
+    while (!seenBanks[lastSeen]) {
+      seenBanks[lastSeen] = Object.keys(seenBanks).length;
+      let startValue = Math.max(...banks);
+      let startPosition = banks.indexOf(startValue);
       banks[startPosition] = 0;
-      while (numbersToSpread) {
-        if (index >= banks.length) {
-          index = 0;
-        }
-        banks[index] += 1;
-        numbersToSpread -= 1;
-        index += 1;
-      }
-      turns += 1;
-    } while (!seenBanks[banks.toString()]);
 
-    console.log(turns);
+      while (startValue) {
+        banks[(startPosition += 1) % banks.length] += 1;
+        startValue -= 1;
+      }
+      lastSeen = banks.toString();
+    }
+
+    console.log(Object.keys(seenBanks).length, Object.keys(seenBanks).length - seenBanks[banks.toString()]);
   });
