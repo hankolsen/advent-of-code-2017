@@ -1,21 +1,12 @@
 #!/usr/bin/env node
 const { getInput } = require('../utils');
+const { sum } = require('./sum');
 
 getInput()
   .then((data) => {
-    const size = data[0].length;
-    const result = data[0]
-      .split('')
-      .filter((value, index, array) => value === array[(index + 1) % size])
-      .reduce((a, b) => parseInt(a, 10) + parseInt(b, 10), 0);
+    const input = data[0];
 
-    console.log(result);
-
-    const result2 = data[0]
-      .split('')
-      .filter((value, index, array) => value === array[(index + (size / 2)) % size])
-      .reduce((a, b) => parseInt(a, 10) + parseInt(b, 10), 0);
-
-    console.log(result2);
+    console.log(`Part 1: ${sum(input)}`);
+    console.log(`Part 2: ${sum(input, true)}`);
   })
   .catch(err => console.log(`There was an error\n${err}`));

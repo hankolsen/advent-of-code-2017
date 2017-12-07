@@ -3,6 +3,9 @@
   "plugins": [
     "import"
   ],
+  "env": {
+    "jest": true
+  },
   "rules": {
     "no-console": 0,
     "max-len": [1, 120]
