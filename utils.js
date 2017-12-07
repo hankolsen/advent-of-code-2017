@@ -1,7 +1,7 @@
 const fs = require('fs');
 
-const readFile = fileName => new Promise((resolve, reject) => {
-  fs.readFile(`data/${fileName}.txt`, 'ascii', (err, data) => {
+const getInput = () => new Promise((resolve, reject) => {
+  fs.readFile('data.txt', 'ascii', (err, data) => {
     if (err) {
       reject(err);
     } else {
@@ -11,4 +11,4 @@ const readFile = fileName => new Promise((resolve, reject) => {
 });
 
 
-module.exports.readFile = readFile;
+module.exports.getInput = getInput;

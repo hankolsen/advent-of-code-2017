@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-const { readFile } = require('./utils');
+const { getInput } = require('../utils');
 
-readFile('day1')
+getInput()
   .then((data) => {
     const size = data[0].length;
     const result = data[0]

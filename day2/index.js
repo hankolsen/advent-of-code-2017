@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-const { readFile } = require('./utils');
+const { getInput } = require('../utils');
 const _ = require('lodash');
 require('lodash.combinations');
 
-readFile('day2')
+getInput()
   .then((data) => {
     const answer = data
       .map(line => line.split('\t'))

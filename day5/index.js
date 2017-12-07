@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const { readFile } = require('./utils');
+const { getInput } = require('../utils');
 
 /* eslint-disable no-param-reassign */
 const instructionStepper = (instructions, offsetter) => {
@@ -18,7 +18,7 @@ const instructionStepper = (instructions, offsetter) => {
 };
 
 
-readFile('day5')
+getInput()
   .then((data) => {
     const instructions = data.map(instruction => parseInt(instruction, 10));
 

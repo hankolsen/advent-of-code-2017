@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-const { readFile } = require('./utils');
+const { getInput } = require('../utils');
 
-readFile('day6')
+getInput()
   .then((data) => {
-    const banks = data[0].split('\t').map(Number);
+    const banks = data[0].split('\t').map(char => parseInt(char, 10));
     const seenBanks = {};
     let lastSeen = banks.toString();
 

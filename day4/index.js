@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const { readFile } = require('./utils');
+const { getInput } = require('../utils');
 
 const isValid = (passphrase, transformer) => {
   const words = passphrase
@@ -8,7 +8,7 @@ const isValid = (passphrase, transformer) => {
   return [...new Set(words)].length === words.length;
 };
 
-readFile('day4')
+getInput()
   .then((data) => {
     const numberOfUnique = data
       .filter(words => isValid(words, word => word))
