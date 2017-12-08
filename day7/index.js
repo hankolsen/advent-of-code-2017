@@ -18,7 +18,8 @@ getInput()
       hash[entry.name] = entry;
     });
 
-    const tree = input.map((entry) => {
+    const tree = input.map((e) => {
+      const entry = Object.assign({}, e);
       entry.children = entry.children.map(child => hash[child]);
       entry.children.map(child => child.parents.push(entry.name));
       return entry;

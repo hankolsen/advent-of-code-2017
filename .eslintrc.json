@@ -4,6 +4,7 @@
     "import"
   ],
   "env": {
+    "node": true,
     "jest": true
   },
   "rules": {
