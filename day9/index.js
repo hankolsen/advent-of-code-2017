@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* eslint no-multi-spaces: 0 */
 const { getInput } = require('../utils');
 
 getInput(true)
@@ -6,24 +7,12 @@ getInput(true)
 
     let opens = 0;
     let points = 0;
-    let garbage = false;
 
-    [...data[0]]
-      .filter((char, index, array) => {
-        if (char === '!') {
-          array.splice(index + 1, 1);
-          return false;
-        }
-        return true;
-      })
-      .filter((char) => {
-        if (char === '<') {
-          garbage = true;
-        } else if (char === '>') {
-          garbage = false;
-        }
-        return !garbage;
-      })
+    const input = data[0]
+      .replace(/!./g, '')         // Remove !
+      .replace(/<.*?>/g, '');     // Remove garbage
+
+    [...input]
       .forEach((char) => {
         if (char === '{') {
           opens += 1;
@@ -32,7 +21,18 @@ getInput(true)
           opens -= 1;
         }
       });
+
     console.log(points);
+
+    const garbageCharacters =
+      data[0]
+        .replace(/!./g, '')                       // Remove !
+        .match(/<.*?>/g)                          // Find garbage
+        .map(chars => chars.length - 2)           // Count garbage characters, excluding <>, on each place in the array
+        .reduce((acc, count) => acc + count, 0);  // Sum all counts in the array
+
+    console.log(garbageCharacters);
+
 
   })
   .catch(err => console.log(`There was an error\n${err}`));
