@@ -4,7 +4,7 @@ const { getInput } = require('../utils');
 const registry = {};
 
 const parseInstruction = (instruction) => {
-  let [register, operation, value, x, comparatorRegister, condition, conditionValue] = [...instruction.split(' ')];
+  const [register, operation, value, , comparatorRegister, condition, conditionValue] = [...instruction.split(' ')];
 
   return {
     action: {
