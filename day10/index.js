@@ -1,6 +1,12 @@
 #!/usr/bin/env node
 const { getInput } = require('../utils');
 
+const rotate = (arr, count) => {
+  count -= arr.length * Math.floor(count / arr.length);
+  arr.push.apply(arr, arr.splice(0, count));
+  return arr;
+};
+
 getInput()
   .then((data) => {
     const input = data[0].split(',').map(char => parseInt(char, 10));
@@ -15,20 +21,22 @@ getInput()
       console.log(`CurrPos: ${currentPosition}`);
       console.log(`Length: ${length}`);
       console.log(`List: ${list}`);
-      console.log(`Slice start ${currentPosition}, slice size ${(currentPosition + length) % list.length} + ${Math.max(0, currentPosition - 1)}`);
 
-      const selection = [...list.slice(currentPosition, currentPosition + length), ...list.slice(0, Math.max(0, currentPosition - 1))];
-      console.log(`Selection : ${selection}`);
-      selection.reverse();
-      console.log(`Reverse : ${selection}`);
-      list = [...selection, ...list.slice(length)];
+      const rotationOffset = (currentPosition + length) % list.length;
+      console.log(`rotationOffset: ${rotationOffset}`);
+      let rotatedList = rotate(list, rotationOffset);
+      console.log(`Rotated list ${rotatedList}`);
+      const reverseRotaionList = [...rotatedList.reverse().splice(0, length)];
+      console.log(`reverseRotaionList ${reverseRotaionList}`);
+      console.log(`reversed: ${[...rotate(list, -(currentPosition + length) % list.length)]}`);
+      list = [...reverseRotaionList, ...rotate(list, -(currentPosition + length) % list.length)];
 console.log(`list ${list}`);
+
       currentPosition += length + skipSize;
       skipSize += 1;
       listIndex += 1;
       console.log('\n');
     }
-
 
     console.log(list);
   })
