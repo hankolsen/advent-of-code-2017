@@ -1,35 +1,32 @@
 #!/usr/bin/env node
+/* eslint no-param-reassign: 0 no-mixed-operators: 0 */
 const { getInput } = require('../utils');
+
+const reverseSelection = (list, currentPosition, length) => {
+  const result = [...list];
+  const arraySize = result.length;
+  for (let n = 0; n < length; n += 1) {
+    result[(n + currentPosition) % arraySize] = list[(currentPosition + length - n - 1) % arraySize];
+  }
+  return result;
+};
+
+const apply = (list, lengths, currentPosition = 0, skipSize = 0) => {
+  while (lengths.length) {
+    const length = lengths.shift();
+    list = reverseSelection(list, currentPosition, length);
+    currentPosition += length + skipSize;
+    skipSize += 1;
+  }
+  return list;
+};
 
 getInput()
   .then((data) => {
-    const input = data[0].split(',').map(char => parseInt(char, 10));
-    let skipSize = 0;
-    let currentPosition = 0;
-    let listIndex = 0;
+    const lengths = data[0].split(',').map(char => parseInt(char, 10));
+    const list = [...Array(256).keys()];
 
-    let list = [...Array(5).keys()];
-
-    for (let i = 0; i < 2; i += 1) {
-      const length = input[listIndex];
-      console.log(`CurrPos: ${currentPosition}`);
-      console.log(`Length: ${length}`);
-      console.log(`List: ${list}`);
-      console.log(`Slice start ${currentPosition}, slice size ${(currentPosition + length) % list.length} + ${Math.max(0, currentPosition - 1)}`);
-
-      const selection = [...list.slice(currentPosition, currentPosition + length), ...list.slice(0, Math.max(0, currentPosition - 1))];
-      console.log(`Selection : ${selection}`);
-      selection.reverse();
-      console.log(`Reverse : ${selection}`);
-      list = [...selection, ...list.slice(length)];
-console.log(`list ${list}`);
-      currentPosition += length + skipSize;
-      skipSize += 1;
-      listIndex += 1;
-      console.log('\n');
-    }
-
-
-    console.log(list);
+    const result = apply(list, lengths);
+    console.log(result[0] * result[1]);
   })
   .catch(err => console.log(`There was an error\n${err}`));
