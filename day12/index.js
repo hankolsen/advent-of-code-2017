@@ -11,6 +11,7 @@ getInput()
       });
 
     const matching = [];
+    let groups = 0;
 
     const getPrograms = (index) => {
       matching.push(index);
