@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* eslint no-param-reassign: 0 no-mixed-operators: 0 */
+/* eslint no-param-reassign: 0, no-mixed-operators: 0, no-bitwise: 0 */
 const { getInput } = require('../utils');
 
 const reverseSelection = (list, currentPosition, length) => {
@@ -12,11 +12,11 @@ const reverseSelection = (list, currentPosition, length) => {
 };
 
 const apply = (list, lengths, currentPosition = 0, skipSize = 0) => {
-  for (const length of lengths) {
+  lengths.forEach((length) => {
     list = reverseSelection(list, currentPosition, length);
     currentPosition += length + skipSize;
     skipSize += 1;
-  }
+  });
   return { result: list, currentPosition, skipSize };
 };
 
