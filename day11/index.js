@@ -21,17 +21,22 @@ const manhattanDistanceHex = ({ x, y }) => {
 getInput()
   .then((data) => {
 
-    const d =
-      data[0]
-        .split(',')
-        .map(step => hexDirections[step])
-        .reduce((totalSteps, distance) => {
-          totalSteps.x += distance.x;
-          totalSteps.y += distance.y;
-          return totalSteps;
-        }, { x: 0, y: 0 });
+    let maxDistance = 0;
+    let currentDistance = 0;
 
-    console.log(manhattanDistanceHex(d));
+    data[0]
+      .split(',')
+      .map(step => hexDirections[step])
+      .reduce((totalSteps, distance) => {
+        totalSteps.x += distance.x;
+        totalSteps.y += distance.y;
+        currentDistance = manhattanDistanceHex(totalSteps);
+        maxDistance = Math.max(currentDistance, maxDistance);
+        return totalSteps;
+      }, { x: 0, y: 0 });
+
+    console.log(currentDistance);
+    console.log(maxDistance);
 
   })
   .catch(err => console.log(`There was an error\n${err}`));
