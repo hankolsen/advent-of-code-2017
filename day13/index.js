@@ -14,19 +14,12 @@ getInput()
       };
     });
 
-    let currentPosition = 0;
-    let caught = 0;
     const keys = Object.keys(input).map(key => parseInt(key, 10));
     const lastStep = Math.max(...keys);
 
-    const step = () => {
-      if (keys.includes(currentPosition)) {
-        if (input[currentPosition].scannerPosition === 0) {
-          caught += currentPosition * input[currentPosition].range;
-        }
-      }
+    const moveScanners = (state) => {
       keys.forEach((key) => {
-        const row = input[key];
+        const row = state[key];
         row.scannerPosition += row.direction;
         if (row.scannerPosition === row.range - 1) {
           row.direction = -1;
@@ -35,14 +28,28 @@ getInput()
           row.direction = 1;
         }
       });
-      currentPosition += 1;
-      if (currentPosition <= lastStep) {
-        step();
-      }
     };
 
+
     const part1 = () => {
-      step();
+      const state = { ...input };
+      let currentPosition = 0;
+      let caught = 0;
+
+      const movePacket = () => {
+        if (keys.includes(currentPosition)) {
+          if (state[currentPosition].scannerPosition === 0) {
+            caught += currentPosition * state[currentPosition].range;
+          }
+        }
+        moveScanners(state);
+        currentPosition += 1;
+        while (currentPosition <= lastStep) {
+          movePacket();
+        }
+      };
+
+      movePacket();
       console.log(caught);
     };
 
