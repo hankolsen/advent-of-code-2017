@@ -13,8 +13,7 @@ getInput()
       .map(number =>
         [...hashString(`${keyString}-${number}`)]
           .map(hexToBin)
-          .join('')
-          .replace(/,/g, ''));
+          .join(''));
 
     const part1 = () => {
 
