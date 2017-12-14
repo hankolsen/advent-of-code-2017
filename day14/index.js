@@ -2,14 +2,19 @@
 /* eslint no-param-reassign: 0 no-bitwise: 0 */
 const { getInput, hashString } = require('../utils');
 
+const hexToBin = hexChar => parseInt(hexChar, 16).toString(2).padStart(4, '0');
+
 getInput()
   .then((data) => {
 
     const keyString = data[0];
 
     const binaryInputs = [...Array(128).keys()]
-      .map(number => hashString(`${keyString}-${number}`))
-      .map(hash => [...hash].map(char => parseInt(char, 16).toString(2).padStart(4, '0')).join('').replace(/,/g, ''));
+      .map(number =>
+        [...hashString(`${keyString}-${number}`)]
+          .map(hexToBin)
+          .join('')
+          .replace(/,/g, ''));
 
     const part1 = () => {
 
