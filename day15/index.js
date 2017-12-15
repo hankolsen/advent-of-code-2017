@@ -5,11 +5,11 @@ getInput()
   .then((data) => {
 
     const factorA = 16807;
+    const multipleA = 4;
     const factorB = 48271;
+    const multipleB = 8;
     const divisor = 2147483647;
-    let length = 40000000;
-    const pairs = {};
-    let [[, nextValueA], [, nextValueB]] = data.map(row => row.split('with '));
+    const [[, startValueA], [, startValueB]] = data.map(row => row.split('with '));
 
     const toBinary = value => value.toString(2).padStart(32, '0').slice(16, 32);
 
@@ -19,6 +19,11 @@ getInput()
     ];
 
     const part1 = () => {
+      const pairs = {};
+      let length = 40000000;
+      let nextValueA = startValueA;
+      let nextValueB = startValueB;
+
       while (length) {
         [nextValueA, nextValueB] = generate(nextValueA, nextValueB);
 
@@ -35,8 +40,32 @@ getInput()
     };
 
     const part2 = () => {
+      const pairs = {};
+      const comparablesA = [];
+      const comparablesB = [];
+      let nextValueA = startValueA;
+      let nextValueB = startValueB;
 
+      while (comparablesB.length <= 5000000) {
+        [nextValueA, nextValueB] = generate(nextValueA, nextValueB);
+        if (nextValueA % multipleA === 0) {
+          comparablesA.push(nextValueA);
+        }
+        if (nextValueB % multipleB === 0) {
+          comparablesB.push(nextValueB);
+        }
+      }
 
+      comparablesB.forEach((valueB, index) => {
+        const binA = toBinary(comparablesA[index]);
+        const binB = toBinary(valueB);
+        if (binA === binB) {
+          pairs[binA] = pairs[binA] ? pairs[binA] += 1 : 1;
+        }
+      });
+
+      const numberOfPairs = Object.values(pairs).reduce((sum, value) => sum + value, 0);
+      console.log(numberOfPairs);
     };
 
     part1();
