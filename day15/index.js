@@ -1,66 +1,42 @@
 #!/usr/bin/env node
-/* eslint no-bitwise: 0 */
+/* eslint no-bitwise: 0, no-param-reassign: 0 */
 const { getInput } = require('../utils');
 
 getInput()
   .then((data) => {
 
-    const factorA = 16807;
-    const multipleA = 4;
-    const factorB = 48271;
-    const multipleB = 8;
-    const divisor = 2147483647;
     const [[startValueA], [startValueB]] = data.map(row => /(\d+)/g.exec(row));
 
-    const binaryCompare = (a, b) => (a & 0xFFFF) === (b & 0xFFFF);
+    const binaryCompare = (a, b) => ((a & 0xFFFF) === (b & 0xFFFF) ? 1 : 0);
 
-    const generate = (valueA, valueB) => [
-      (valueA * factorA) % divisor,
-      (valueB * factorB) % divisor,
-    ];
+    const generator = (value, factor, test = () => true) => {
+      do {
+        value = (value * factor) % 2147483647;
+      } while (!test(value));
 
-    const part1 = () => {
+      return value;
+    };
+
+    function generatorComparator(valueA, valueB, length, testA = () => true, testB = () => true) {
       let pairs = 0;
-      let length = 40000000;
-      let nextValueA = startValueA;
-      let nextValueB = startValueB;
-
       while (length) {
-        [nextValueA, nextValueB] = generate(nextValueA, nextValueB);
-
-        if (binaryCompare(nextValueA, nextValueB)) {
-          pairs += 1;
-        }
-
+        valueA = generator(valueA, 16807, testA);
+        valueB = generator(valueB, 48271, testB);
+        pairs += binaryCompare(valueA, valueB);
         length -= 1;
       }
+      return pairs;
+    }
+
+
+    const part1 = () => {
+      const pairs = generatorComparator(startValueA, startValueB, 40000000);
       console.log(pairs);
     };
 
+
     const part2 = () => {
-      let pairs = 0;
-      const comparablesA = [];
-      const comparablesB = [];
-      let nextValueA = startValueA;
-      let nextValueB = startValueB;
-
-      while (comparablesB.length <= 5000000) {
-        [nextValueA, nextValueB] = generate(nextValueA, nextValueB);
-        if (nextValueA % multipleA === 0) {
-          comparablesA.push(nextValueA);
-        }
-        if (nextValueB % multipleB === 0) {
-          comparablesB.push(nextValueB);
-        }
-      }
-
-      comparablesB.forEach((valueB, index) => {
-        const valueA = comparablesA[index];
-        if (binaryCompare(valueA, valueB)) {
-          pairs += 1;
-        }
-      });
-
+      const pairs = generatorComparator(startValueA, startValueB, 5000000, n => (n % 4) === 0, n => (n % 8) === 0);
       console.log(pairs);
     };
 
