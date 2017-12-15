@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* eslint no-bitwise: 0 */
 const { getInput } = require('../utils');
 
 getInput()
@@ -9,9 +10,9 @@ getInput()
     const factorB = 48271;
     const multipleB = 8;
     const divisor = 2147483647;
-    const [[, startValueA], [, startValueB]] = data.map(row => row.split('with '));
+    const [[startValueA], [startValueB]] = data.map(row => /(\d+)/g.exec(row));
 
-    const toBinary = value => value.toString(2).padStart(32, '0').slice(16, 32);
+    const binaryCompare = (a, b) => (a & 0xFFFF) === (b & 0xFFFF);
 
     const generate = (valueA, valueB) => [
       (valueA * factorA) % divisor,
@@ -19,7 +20,7 @@ getInput()
     ];
 
     const part1 = () => {
-      const pairs = {};
+      let pairs = 0;
       let length = 40000000;
       let nextValueA = startValueA;
       let nextValueB = startValueB;
@@ -27,20 +28,17 @@ getInput()
       while (length) {
         [nextValueA, nextValueB] = generate(nextValueA, nextValueB);
 
-        const [binaryA, binaryB] = [nextValueA, nextValueB].map(toBinary);
-
-        if (binaryA === binaryB) {
-          pairs[binaryA] = pairs[binaryA] ? pairs[binaryA] += 1 : 1;
+        if (binaryCompare(nextValueA, nextValueB)) {
+          pairs += 1;
         }
 
         length -= 1;
       }
-      const numberOfPairs = Object.values(pairs).reduce((sum, value) => sum + value, 0);
-      console.log(numberOfPairs);
+      console.log(pairs);
     };
 
     const part2 = () => {
-      const pairs = {};
+      let pairs = 0;
       const comparablesA = [];
       const comparablesB = [];
       let nextValueA = startValueA;
@@ -57,15 +55,13 @@ getInput()
       }
 
       comparablesB.forEach((valueB, index) => {
-        const binA = toBinary(comparablesA[index]);
-        const binB = toBinary(valueB);
-        if (binA === binB) {
-          pairs[binA] = pairs[binA] ? pairs[binA] += 1 : 1;
+        const valueA = comparablesA[index];
+        if (binaryCompare(valueA, valueB)) {
+          pairs += 1;
         }
       });
 
-      const numberOfPairs = Object.values(pairs).reduce((sum, value) => sum + value, 0);
-      console.log(numberOfPairs);
+      console.log(pairs);
     };
 
     part1();
