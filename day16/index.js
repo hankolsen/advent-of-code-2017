@@ -7,7 +7,6 @@ getInput()
 
     const input = [...Array(16).keys()].map(n => String.fromCharCode(n + 97));
     const danceMoves = data[0].split(',');
-    const cycles = {};
 
     const swap = (programs, a, b) => {
       [programs[a], [programs[b]]] = [programs[b], programs[a]];
@@ -25,33 +24,29 @@ getInput()
       return moves[move](programs, ...involved);
     }, start);
 
-
-    const part1 = () => dance(input).join('');
-
-    const findLoop = (part1Res) => {
-      let i = 2;
-      let key = dance(part1Res).join('');
-      while (cycles[key] === undefined) {
-        cycles[key] = i;
-        key = dance(key).join('');
+    const findAlreadySeenValue = (value, f) => {
+      const seen = {};
+      let i = 0;
+      let key = value;
+      while (seen[key] === undefined) {
+        seen[key] = i;
+        key = f(key);
         i += 1;
       }
-      return i;
+
+      return [i, seen];
     };
 
-    const part2 = (programs) => {
-      const index = findLoop(programs);
+    const part1 = () => console.log(dance(input).join(''));
+
+    const part2 = () => {
+      const [index, seen] = findAlreadySeenValue(input.join(''), value => dance(value).join(''));
       const position = (1000000000 - index) % index;
-      console.log(Object.entries(cycles).find((entry, i) => i === position)[0]);
+      console.log(Object.entries(seen).find((entry, i) => i === position)[0]);
     };
 
-
-    const part1Result = part1();
-    console.log(part1Result);
-
-    cycles[input.join('')] = 0;
-    cycles[part1Result] = 1;
-    part2(part1Result);
+    part1();
+    part2();
 
   })
   .catch(err => console.log(`There was an error\n${err}`));
