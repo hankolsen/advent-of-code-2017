@@ -20,7 +20,7 @@ getInput()
     };
 
     const dance = start => danceMoves.reduce((programs, danceMove) => {
-      const [, move, ...involved] = danceMove.match(/([sxp])(\w+)\/?(\w+)?/)
+      const [, move, ...involved] = danceMove.match(/([sxp])(\w+)\/?(\w+)?/);
       return moves[move](programs, ...involved);
     }, start);
 
