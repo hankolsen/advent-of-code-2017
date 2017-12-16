@@ -7,6 +7,7 @@ getInput()
 
     const input = [...Array(16).keys()].map(n => String.fromCharCode(n + 97));
     const danceMoves = data[0].split(',');
+    const cycles = {};
 
     const swap = (programs, a, b) => {
       [programs[a], [programs[b]]] = [programs[b], programs[a]];
@@ -27,8 +28,21 @@ getInput()
 
     const part1 = () => dance(input).join('');
 
-    const part2 = () => {
+    const findLoop = (programs) => {
+      let i = 0;
+      let key = programs.join('');
+      while (cycles[key] === undefined) {
+        cycles[key] = i;
+        i += 1;
+        key = dance(key).join('');
+      }
+      return i;
+    };
 
+    const part2 = () => {
+      const index = findLoop(input);
+      const position = (1000000000 - index) % index;
+      console.log(Object.entries(cycles).find((entry, i) => i === position)[0]);
     };
 
 
