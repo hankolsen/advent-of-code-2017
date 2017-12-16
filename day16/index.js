@@ -6,7 +6,12 @@ getInput()
   .then((data) => {
 
     const input = [...Array(16).keys()].map(n => String.fromCharCode(n + 97));
-    const danceMoves = data[0].split(',');
+    const danceMoves = data[0]
+      .split(',')
+      .map((danceMove) => {
+        const [, move, ...involved] = danceMove.match(/([sxp])(\w+)\/?(\w+)?/);
+        return [move, involved];
+      });
 
     const swap = (programs, a, b) => {
       [programs[a], [programs[b]]] = [programs[b], programs[a]];
@@ -14,14 +19,14 @@ getInput()
     };
 
     const moves = {
-      s: (programs, x) => [...[...programs.slice(-x)], ...[...programs.slice(0, (programs.length - x))]],
-      x: (programs, a, b) => swap(programs, a, b),
-      p: (programs, a, b) => swap(programs, programs.indexOf(a), programs.indexOf(b)),
+      s: x => programs => [...[...programs.slice(-x)], ...[...programs.slice(0, (programs.length - x))]],
+      x: (a, b) => programs => swap(programs, a, b),
+      p: (a, b) => programs => swap(programs, programs.indexOf(a), programs.indexOf(b)),
     };
 
     const dance = start => danceMoves.reduce((programs, danceMove) => {
-      const [, move, ...involved] = danceMove.match(/([sxp])(\w+)\/?(\w+)?/);
-      return moves[move](programs, ...involved);
+      const [move, involved] = danceMove;
+      return moves[move](...involved)(programs);
     }, start);
 
     const findAlreadySeenValue = (value, f) => {
