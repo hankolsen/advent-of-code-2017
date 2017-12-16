@@ -28,27 +28,30 @@ getInput()
 
     const part1 = () => dance(input).join('');
 
-    const findLoop = (programs) => {
-      let i = 0;
-      let key = programs.join('');
+    const findLoop = (part1Res) => {
+      let i = 2;
+      let key = dance(part1Res).join('');
       while (cycles[key] === undefined) {
         cycles[key] = i;
-        i += 1;
         key = dance(key).join('');
+        i += 1;
       }
       return i;
     };
 
-    const part2 = () => {
-      const index = findLoop(input);
+    const part2 = (programs) => {
+      const index = findLoop(programs);
       const position = (1000000000 - index) % index;
       console.log(Object.entries(cycles).find((entry, i) => i === position)[0]);
     };
 
 
-    console.log(part1());
+    const part1Result = part1();
+    console.log(part1Result);
 
-    part2();
+    cycles[input.join('')] = 0;
+    cycles[part1Result] = 1;
+    part2(part1Result);
 
   })
   .catch(err => console.log(`There was an error\n${err}`));
