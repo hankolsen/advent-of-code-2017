@@ -5,10 +5,11 @@ const { getInput } = require('../utils');
 getInput()
   .then((data) => {
 
-    const steps = data[0];
+    const steps = parseInt(data[0], 10);
 
-    const step = (buffer, pos, value) => {
-      const nextPos = (((steps % buffer.length) + pos) % buffer.length) + 1;
+    const step = (buffer, pos) => {
+      const value = buffer[pos] + 1;
+      const nextPos = ((pos + steps) % buffer.length) + 1;
       buffer.splice(nextPos, 0, value);
       return nextPos;
 
@@ -17,10 +18,8 @@ getInput()
     const part1 = () => {
       const buffer = [0];
       let pos = 0;
-      let value = 1;
-      while (value < 2018) {
-        pos = step(buffer, pos, value);
-        value += 1;
+      while (buffer[pos] < 2017) {
+        pos = step(buffer, pos);
       }
       console.log(buffer[pos + 1]);
     };
