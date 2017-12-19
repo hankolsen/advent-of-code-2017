@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-const { getInput } = require('../utils');
+const { getRow } = require('../utils');
 
-getInput()
+getRow()
   .then((data) => {
-    const banks = data[0].split('\t').map(char => parseInt(char, 10));
+    const banks = data.split('\t').map(char => parseInt(char, 10));
     const seenBanks = {};
     let lastSeen = banks.toString();
 

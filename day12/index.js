@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-const { getInput } = require('../utils');
+const { getRows } = require('../utils');
 
-getInput()
+getRows()
   .then((data) => {
 
     const programs = data

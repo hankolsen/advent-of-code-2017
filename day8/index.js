@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const { getInput } = require('../utils');
+const { getRows } = require('../utils');
 
 const registry = {};
 
@@ -43,7 +43,7 @@ const applyOperation = ({ action, test }) => {
 };
 
 
-getInput()
+getRows()
   .then((data) => {
     data
       .map(parseInstruction)

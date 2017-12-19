@@ -41,6 +41,10 @@ Your goal is to find the total score for all groups in your input. Each group is
 {{<a!>},{<a!>},{<a!>},{<ab>}}, score of 1 + 2 = 3.
 What is the total score for all groups in your input?
 
+
+Your puzzle answer was 14204.
+
+
 --- Part Two ---
 
 Now, you're ready to remove the garbage.
@@ -55,6 +59,10 @@ To prove you've removed it, you need to count all of the characters within the g
 <!!!>>, 0 characters.
 <{o"i!a,<{i<a>, 10 characters.
 How many non-canceled characters are within the garbage in your puzzle input?
+
+
+Your puzzle answer was 6622.
+
 
 
 

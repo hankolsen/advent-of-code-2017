@@ -1,12 +1,10 @@
 #!/usr/bin/env node
-const { getInput } = require('../utils');
+const { getRow } = require('../utils');
 const { sum } = require('./sum');
 
-getInput()
+getRow()
   .then((data) => {
-    const input = data[0];
-
-    console.log(`Part 1: ${sum(input)}`);
-    console.log(`Part 2: ${sum(input, true)}`);
+    console.log(`Part 1: ${sum(data)}`);
+    console.log(`Part 2: ${sum(data, true)}`);
   })
   .catch(err => console.log(`There was an error\n${err}`));

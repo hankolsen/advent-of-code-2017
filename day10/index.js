@@ -1,16 +1,16 @@
 #!/usr/bin/env node
-const { applyLengths, getInput, hashString } = require('../utils');
+const { applyLengths, getRow, hashString } = require('../utils');
 
 
 const listSize = 256;
 
 
-getInput()
+getRow()
   .then((data) => {
 
     const part1 = () => {
       const list = [...Array(listSize).keys()];
-      const lengths = data[0]
+      const lengths = data
         .split(',')
         .map(char => parseInt(char, 10));
 
@@ -19,7 +19,7 @@ getInput()
     };
 
     const part2 = () => {
-      console.log(hashString(data[0]));
+      console.log(hashString(data));
     };
 
     part1();

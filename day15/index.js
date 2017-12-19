@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 /* eslint no-bitwise: 0, no-param-reassign: 0 */
-const { getInput } = require('../utils');
+const { getRows } = require('../utils');
 
-getInput()
+getRows()
   .then((data) => {
 
     const [[startValueA], [startValueB]] = data.map(row => /(\d+)/g.exec(row));

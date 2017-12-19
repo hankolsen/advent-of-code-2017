@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 /* eslint no-param-reassign: 0 */
-const { getInput } = require('../utils');
+const { getRow } = require('../utils');
 
-getInput()
+getRow()
   .then((data) => {
 
-    const steps = parseInt(data[0], 10);
+    const steps = parseInt(data, 10);
     const buffer = [0];
     let pos = 0;
 

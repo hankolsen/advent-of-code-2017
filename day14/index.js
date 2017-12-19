@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 /* eslint no-param-reassign: 0 no-bitwise: 0 */
-const { getInput, hashString } = require('../utils');
+const { getRow, hashString } = require('../utils');
 
 const hexToBin = hexChar => parseInt(hexChar, 16).toString(2).padStart(4, '0');
 
-getInput()
+getRow()
   .then((data) => {
 
-    const keyString = data[0];
+    const keyString = data;
 
     const grid = [...Array(128).keys()]
       .map(number =>

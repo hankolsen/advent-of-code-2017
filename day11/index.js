@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /* eslint no-param-reassign: 0 */
-const { getInput } = require('../utils');
+const { getRow } = require('../utils');
 
 const hexDirections = {
   n: { x: 0, y: 1 },
@@ -18,13 +18,13 @@ const manhattanDistanceHex = ({ x, y }) => {
   return Math.max(Math.abs(x), Math.abs(y));
 };
 
-getInput()
+getRow()
   .then((data) => {
 
     let maxDistance = 0;
     let currentDistance = 0;
 
-    data[0]
+    data
       .split(',')
       .map(step => hexDirections[step])
       .reduce((totalSteps, distance) => {

@@ -35,6 +35,10 @@ In this example, the first two numbers in the list end up being 3 and 4; to chec
 
 However, you should instead use the standard list size of 256 (with values 0 to 255) and the sequence of lengths in your puzzle input. Once this process is complete, what is the result of multiplying the first two numbers in the list?
 
+
+Your puzzle answer was 54675.
+
+
 --- Part Two ---
 
 The logic you've constructed forms a single round of the Knot Hash algorithm; running the full thing requires many of these rounds. Some input and output processing is also required.
@@ -61,3 +65,6 @@ AoC 2017 becomes 33efeb34ea91902bb2f59c9920caa6cd.
 1,2,3 becomes 3efbe78a8d82f29979031a4aa0b16a9d.
 1,2,4 becomes 63960835bcdc130f0b66d7ff4f6a5a8e.
 Treating your puzzle input as a string of ASCII characters, what is the Knot Hash of your puzzle input? Ignore any leading or trailing whitespace you might encounter.
+
+
+Your puzzle answer was a7af2706aa9a09cf5d848c1e6605dd2a.

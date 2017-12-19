@@ -1,7 +1,7 @@
 /* eslint no-param-reassign: 0, no-bitwise: 0  */
 const fs = require('fs');
 
-const getInput = () => new Promise((resolve, reject) => {
+const getRows = () => new Promise((resolve, reject) => {
   fs.readFile('data.txt', 'ascii', (err, data) => {
     if (err) {
       reject(err);
@@ -10,6 +10,8 @@ const getInput = () => new Promise((resolve, reject) => {
     }
   });
 });
+
+const getRow = () => getRows().then(data => data[0]);
 
 const listSize = 256;
 
@@ -48,4 +50,4 @@ const hashString = (str) => {
 };
 
 
-module.exports = { applyLengths, getInput, hashString };
+module.exports = { applyLengths, getRow, getRows, hashString };

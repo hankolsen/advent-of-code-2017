@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 /* eslint no-param-reassign: 0 */
-const { getInput } = require('../utils');
+const { getRows } = require('../utils');
 
-getInput()
+getRows()
   .then((data) => {
     const input = data.map((row) => {
       const [depth, range] = row.split(': ');

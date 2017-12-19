@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 /* eslint no-multi-spaces: 0 */
-const { getInput } = require('../utils');
+const { getRow } = require('../utils');
 
-getInput(true)
+getRow(true)
   .then((data) => {
 
     let opens = 0;
     let points = 0;
 
-    const input = data[0]
+    const input = data
       .replace(/!./g, '')         // Remove !
       .replace(/<.*?>/g, '');     // Remove garbage
 
@@ -25,7 +25,7 @@ getInput(true)
     console.log(points);
 
     const garbageCharacters =
-      data[0]
+      data
         .replace(/!./g, '')                       // Remove !
         .match(/<.*?>/g)                          // Find garbage
         .map(chars => chars.length - 2)           // Count garbage characters, excluding <>, on each place in the array

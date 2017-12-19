@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-const { getInput } = require('../utils');
+const { getRows } = require('../utils');
 
-getInput()
+getRows()
   .then((data) => {
     const regexp = new RegExp(/(\w+)( \((\d+)\))?( -> ([\w, ]+))?/);
     const hash = {};

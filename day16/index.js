@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 /* eslint no-bitwise: 0, no-param-reassign: 0 */
-const { getInput } = require('../utils');
+const { getRow } = require('../utils');
 
-getInput()
+getRow()
   .then((data) => {
 
     const input = [...Array(16).keys()].map(n => String.fromCharCode(n + 97));
-    const danceMoves = data[0]
+    const danceMoves = data
       .split(',')
       .map((danceMove) => {
         const [, move, ...involved] = danceMove.match(/([sxp])(\w+)\/?(\w+)?/);
