@@ -32,7 +32,7 @@ getInput()
       while (state.currentRow < input.length) {
         const [instruction, position, value] = input[state.currentRow];
         if (instruction === 'rcv') {
-          state.register.lastPlayed = yield null;
+          state.register.lastPlayed = yield;
           if (!state.register.lastPlayed) {
             break;
           }
@@ -42,8 +42,6 @@ getInput()
           yield state.register.lastPlayed;
         }
       }
-
-      return state;
     }
 
 
