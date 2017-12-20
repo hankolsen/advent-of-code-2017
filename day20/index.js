@@ -33,11 +33,10 @@ getRows()
       console.log(distance.indexOf(Math.min(...distance)));
     };
 
-    console.log(input[0])
     const part2 = () => {
       let state = [...input];
-      const seen = {};
-      for (let i = 0; i < 50; i += 1) {
+      for (let tick = 0; tick < 1000; tick += 1) {
+        const seen = {};
         state = state.map(([p, v, a, index]) => {
           v = sumArrays(v, a);
           p = sumArrays(p, v);
@@ -48,22 +47,18 @@ getRows()
           }
           return [p, v, a, index];
         });
-        const collisions = Object.entries(seen).filter(([, entries]) => entries.length > 1);
-        if (collisions.length) {
-          const [position, entries] = collisions[0] || [];
 
-          console.log(position, entries);
-          console.log(state[entries[0]], state[entries[1]]);
-          state = state.splice(entries[0], 1);
-        }
-       /* Object.values(seen).forEach(pos => {
-          console.log(state.length);
-          state = state.splice(pos, 1);
-        });*/
+        Object.values(seen)
+          .filter(indices => indices.length > 1)
+          .forEach((indices) => {
+            indices.forEach((index) => {
+              const duplicate = state.find(([, , , i]) => i === index);
+              state.splice(state.indexOf(duplicate), 1);
+            });
+          });
       }
-      /*console.log(Object.values(seen).filter(id => id.length > 1));
-      console.log(state[71]);
-      console.log(state[72]);*/
+      console.log(state.length);
+
     };
 
     part1();
