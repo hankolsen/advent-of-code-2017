@@ -44,3 +44,6 @@ The good news is that you have improved calculations for how to stop the spinloc
 The bad news is that while you were determining this, the spinlock has just finished inserting its fifty millionth value (50000000).
 
 What is the value after 0 the moment 50000000 is inserted?
+
+
+Your puzzle answer was 11995607.

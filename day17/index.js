@@ -19,6 +19,14 @@ getRow()
 
 
     const part2 = () => {
+      let result = 0;
+      for (let i = 1; i <= 50000000; i += 1) {
+        pos = ((pos + steps) % i) + 1;
+        if (pos === 1) {
+          result = i;
+        }
+      }
+      console.log(result);
     };
 
     part1();
