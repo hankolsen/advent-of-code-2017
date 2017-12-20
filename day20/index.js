@@ -17,17 +17,18 @@ getRows()
 
     const sumArrays = (a, b) => a.map((num, i) => parseInt(num, 10) + parseInt(b[i], 10));
     const manhattanDistance = ([x, y, z]) => Math.abs(x) + Math.abs(y) + Math.abs(z);
+    const step = ([p, v, a, i], fn) => {
+      v = sumArrays(v, a);
+      p = sumArrays(p, v);
+      fn(p, i);
+      return [p, v, a, i];
+    };
 
     const part1 = () => {
       const distance = [];
       let state = [...input];
-      for (let i = 0; i < 1000; i += 1) {
-        state = state.map(([p, v, a, index]) => {
-          v = sumArrays(v, a);
-          p = sumArrays(p, v);
-          distance[index] = manhattanDistance(p);
-          return [p, v, a, index];
-        });
+      for (let tick = 0; tick < 1000; tick += 1) {
+        state = state.map(row => step(row, ((p, i) => { distance[i] = manhattanDistance(p); })));
       }
 
       console.log(distance.indexOf(Math.min(...distance)));
@@ -37,16 +38,7 @@ getRows()
       let state = [...input];
       for (let tick = 0; tick < 1000; tick += 1) {
         const seen = {};
-        state = state.map(([p, v, a, index]) => {
-          v = sumArrays(v, a);
-          p = sumArrays(p, v);
-          if (!seen[p]) {
-            seen[p] = [index];
-          } else {
-            seen[p].push(index);
-          }
-          return [p, v, a, index];
-        });
+        state = state.map(row => step(row, ((p, i) => { !seen[p] ? seen[p] = [i] : seen[p].push(i); })));
 
         Object.values(seen)
           .filter(indices => indices.length > 1)

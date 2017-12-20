@@ -62,3 +62,6 @@ p=< 0,0,0>, v=<-1,0,0>, a=< 0,0,0>
 In this example, particles 0, 1, and 2 are simultaneously destroyed at the time and place marked X. On the next tick, particle 3 passes through unharmed.
 
 How many particles are left after all collisions are resolved?
+
+
+Your puzzle answer was 471.
