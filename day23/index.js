@@ -34,6 +34,22 @@ getRows()
     };
 
     const part2 = () => {
+      const [, , value] = input[0];
+      let b = (value * 100) + 100000;
+      const c = b + 17000;
+      let h = 0;
+
+      for (b; b < c + 1; b += 17) {
+        let d = 2;
+        while (b % d !== 0) {
+          d += 1;
+        }
+        if (b !== d) {
+          h += 1;
+        }
+      }
+
+      console.log(h);
     };
 
     part1();
