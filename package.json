@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Advent of Code 2017 solutions",
   "dependencies": {
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.11",
     "lodash.combinations": "^17.8.19",
     "yarn": "^1.3.2"
   },
